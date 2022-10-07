@@ -7,7 +7,7 @@
 
 #define	OPTLIST		"bruf:l:"
 #define DEFAULT_LENGTH 4
-#define DEFAULT_FILE "/tmp/trove"
+#define DEFAULT_FILE "/tmp/trovefile"
 
 int main(int argc, char *argv[]) {
     
