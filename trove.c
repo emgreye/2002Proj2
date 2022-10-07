@@ -53,6 +53,11 @@ int main(int argc, char *argv[]) {
     }
     argc  -= optind;
     argv  += optind;
+
+
+    if (build) {
+        buildtrove(DEFAULT_FILE, "Test");
+    }
     
     //dummy code so that it compiles
     printf("Length? %i.\nFile name? %s.\nBuild? %i.\nRemove? %i.\nUpdate? %i.\n", length, filenm, build, remove, update);

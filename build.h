@@ -1,0 +1,1 @@
+void buildtrove(char filename[], char contents[]);
