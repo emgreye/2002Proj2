@@ -3,7 +3,7 @@
 
 PROJECT =  trove
 HEADERS =  $(PROJECT).h
-OBJ     =  trove.o tbd.o
+OBJ     =  trove.o file1.o
 
 
 C11     =  cc -std=c11
@@ -11,11 +11,11 @@ CFLAGS  =  -Wall -Werror -pedantic
 
 
 $(PROJECT) : $(OBJ)
-       $(C11) $(CFLAGS) -o $(PROJECT) $(OBJ) -lm
+		$(C11) $(CFLAGS) -o $(PROJECT) $(OBJ) -lm
 
 
 %.o : %.c $(HEADERS)
-       $(C11) $(CFLAGS) -c $<
+		$(C11) $(CFLAGS) -c $<
 
 clean:
-       rm -f $(PROJECT) $(OBJ)
+		rm -f $(PROJECT) $(OBJ)
