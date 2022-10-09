@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 
 
     if (build) {
-        buildtrove(DEFAULT_FILE, "Test");
+        buildtrove(filenm, "Test");
     }
     
     //dummy code so that it compiles
