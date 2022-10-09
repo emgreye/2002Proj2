@@ -3,7 +3,7 @@
 
 PROJECT =  trove
 HEADERS =  $(PROJECT).h
-OBJ     =  trove.o file1.o
+OBJ     =  trove.o file1.o build.o compression.o filenames.o findfiles.o findwords.o globals.o remove.o trovefile.o update.o words.o
 
 
 C11     =  cc -std=c11

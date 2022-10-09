@@ -1,1 +1,1 @@
-void buildtrove(char filename[], char contents[]);
+extern void buildtrove(char *, char *);
