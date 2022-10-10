@@ -4,5 +4,4 @@
 #include <stdbool.h>
 #include <string.h>
 #include "build.h"
-
-extern void		buildtrove(char *, char *);
+#include "findfiles.h"
