@@ -54,9 +54,14 @@ int main(int argc, char *argv[]) {
     argc  -= optind;
     argv  += optind;
 
-
+    // HERE FOR TESTING PURPOSES ONLY FOR THE MOMENT
     if (build) {
-        buildtrove(filenm, "Test");
+        int i = 0;
+        while (argv[i] != NULL) {
+            listFiles(argv[i]);
+            // printf("%s\n", argv[i]);
+            i++;
+        }
     }
     
     //dummy code so that it compiles
