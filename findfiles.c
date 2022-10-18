@@ -14,7 +14,7 @@ void listFiles(const char* dirname) {
     // GOES THROUGH EVERY ENTITY IN THE DIRECTORY
     while (entity != NULL) {
         // ACTION TO BE PERFORMED REGARDLESS OF THE ENTITY
-        printf("%hhd %s/%s\n", entity->d_type, dirname, entity->d_name);
+        printf("%hhd %s/%s\n", entity->d_type, dirname, entity->d_name); // Prints the type and the path to the entity
 
         // RECURSIVELY GOES THROUGH THE SUBDIRECTORIES
         if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
@@ -29,6 +29,11 @@ void listFiles(const char* dirname) {
         else if (entity->d_type == DT_REG) {
             // ACTION TO BE PERFORMED IF THE ENTITY IS A FILE
             // (i.e. going through the words, etc)
+            char path[100] = { 0 };
+            strcat(path, dirname);
+            strcat(path, "/");
+            strcat(path, entity->d_name);
+            findwords(path);
         }
 
         // GOES TO NEXT ENTITY IN FOLDER
