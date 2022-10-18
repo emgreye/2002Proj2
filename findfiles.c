@@ -3,14 +3,23 @@
 
 void findfiles(const char* dirname, int minWordLength) {
     DIR* dir = opendir(dirname);
+
+    // If dirname is just a file
+    if (fopen(dirname, "r") != NULL && dir == NULL) { 
+        printf("finding words in %s.\n", dirname);
+        findwords(dirname, minWordLength);
+    }
+
+    // If directory does not exist
     if (dir == NULL) {
         return;
     }
 
-    printf("\nReading files in: %s\n", dirname);
-
     struct dirent* entity;
     entity = readdir(dir);
+
+    printf("%s", entity->d_name);
+
     // GOES THROUGH EVERY ENTITY IN THE DIRECTORY
     while (entity != NULL) {
         // ACTION TO BE PERFORMED REGARDLESS OF THE ENTITY
@@ -31,7 +40,7 @@ void findfiles(const char* dirname, int minWordLength) {
         else if (entity->d_type == DT_REG) {
             // ACTION TO BE PERFORMED IF THE ENTITY IS A FILE
             // (i.e. going through the words, etc)
-            printf("Reading the words in %s\n", path);
+            printf("finding words in %s.\n", path);
             findwords(path, minWordLength);
         }
 
