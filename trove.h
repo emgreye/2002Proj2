@@ -6,3 +6,4 @@
 #include "build.h"
 #include "findfiles.h"
 #include "findwords.h"
+#include <sys/stat.h>
