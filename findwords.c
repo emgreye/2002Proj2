@@ -1,6 +1,6 @@
 #include "trove.h"
 
-#define MAX_WORD_SIZE 50
+#define MAX_WORD_SIZE 2000
 
 char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
   unsigned char *p = (unsigned char *)str;
@@ -28,13 +28,15 @@ void findwords(const char *path, int minLength) {
     int size = ftell(fptr);
     rewind(fptr);
 
+    printf("File is %d bytes.\n", size);
+
     int i, len, index, isUnique;
 
     char **words; // List of all the distinct words in the file
-    words = malloc(size * size * sizeof(char*));
+    words = malloc(size * sizeof(char*));
 
     for(int i = 0; i < size; i++) {
-        words[i] = malloc((size * MAX_WORD_SIZE + 1) * sizeof(char));
+        words[i] = malloc((MAX_WORD_SIZE + 1) * sizeof(char));
     }
 
     // char words[size][MAX_WORD_SIZE]; // List of all the distinct words in the file
@@ -48,18 +50,21 @@ void findwords(const char *path, int minLength) {
     while (fscanf(fptr, "%s", word) != EOF) {
         // Skips the iteration if word is too short
         if (strlen(word) < minLength) continue;
+        if (strlen(word) > MAX_WORD_SIZE) continue;
 
         // Remove special characters
-        char cleanWord[MAX_WORD_SIZE];
-        int i = 0, c = 0;
-        for(; i < strlen(word); i++) {
-            if (isalnum(word[i])) {
-                cleanWord[c] = word[i];
-                c++;
-            }
-        }
-        cleanWord[c] = '\0';
-        strcpy(word, cleanWord);
+        // char cleanWord[MAX_WORD_SIZE];
+        // int i = 0, c = 0;
+        // for(; i < strlen(word); i++) {
+        //     if (isalnum(word[i])) {
+        //         cleanWord[c] = word[i];
+        //         c++;
+        //     } else {
+                
+        //     }
+        // }
+        // cleanWord[c] = '\0';
+        // strcpy(word, cleanWord);
 
         // Remove last punctuation character
         len = strlen(word);
@@ -80,8 +85,7 @@ void findwords(const char *path, int minLength) {
             count[index]++;
 
             index++;
-        }
-        else {
+        } else {
             count[i - 1]++;
         }
     }
@@ -93,7 +97,6 @@ void findwords(const char *path, int minLength) {
     /*
      * Print occurrences of all words in file. 
      */
-    printf("Occurrences of all distinct words in file %s\n", path);
     for (i=0; i<index; i++) {
         /*
          * %-15s prints string in 15 character width.
@@ -102,5 +105,6 @@ void findwords(const char *path, int minLength) {
          */
         printf("%-15s => %d\n", words[i], count[i]);
     }    
+    printf("found %d words.\n", index);
     free(words);
 }
