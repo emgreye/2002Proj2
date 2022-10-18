@@ -61,8 +61,6 @@ void findwords(const char *path, int minLength) {
         cleanWord[c] = '\0';
         strcpy(word, cleanWord);
 
-        // Convert word to lowercase
-        strlwr(word);
         // Remove last punctuation character
         len = strlen(word);
         if (ispunct(word[len - 1])) word[len - 1] = '\0';
