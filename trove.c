@@ -58,8 +58,7 @@ int main(int argc, char *argv[]) {
     if (build) {
         int i = 0;
         while (argv[i] != NULL) {
-            findfiles(argv[i], DEFAULT_LENGTH);
-            // printf("%s\n", argv[i]);
+            findfiles(argv[i], length);
             i++;
         }
     }
