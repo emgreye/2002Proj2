@@ -13,52 +13,63 @@ char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
   return str;
 }
 
-void findwords(const char *path) {
+void findwords(const char *path, int minLength) {
     FILE *fptr;
     fptr = fopen(path, "r");
 
-    /* Exit if file not opened successfully */
-    if (fptr == NULL)
-    {
+    // Exit if file not opened successfully
+    if (fptr == NULL) {
         printf("Unable to open file.\n");
-        printf("Please check you have read previleges.\n");
-
         exit(EXIT_FAILURE);
     }
 
-    fseek(fptr, 0L, SEEK_END);    // seek to the EOF
-    int size = ftell(fptr);       // get the current position
-    rewind(fptr);                // rewind to the beginning of file
+    // Determine file size
+    fseek(fptr, 0L, SEEK_END);
+    int size = ftell(fptr);
+    rewind(fptr);
 
     int i, len, index, isUnique;
 
-    // List of distinct words
-    char words[size][MAX_WORD_SIZE];
-    char word[MAX_WORD_SIZE];
+    char **words; // List of all the distinct words in the file
+    words = malloc(size * size * sizeof(char*));
 
-    // Count of distinct words
-    int  count[size];
+    for(int i = 0; i < size; i++) {
+        words[i] = malloc((size * MAX_WORD_SIZE + 1) * sizeof(char));
+    }
+
+    // char words[size][MAX_WORD_SIZE]; // List of all the distinct words in the file
+    int  count[size]; // List of occurences of each word in the words[] array
+    char word[MAX_WORD_SIZE];
 
     // Initialize words count to 0
     for (i=0; i<size; i++) count[i] = 0;
-
     index = 0;
     
-    while (fscanf(fptr, "%s", word) != EOF)
-    {
+    while (fscanf(fptr, "%s", word) != EOF) {
+        // Skips the iteration if word is too short
+        if (strlen(word) < minLength) continue;
+
+        // Remove special characters
+        char cleanWord[MAX_WORD_SIZE];
+        int i = 0, c = 0;
+        for(; i < strlen(word); i++) {
+            if (isalnum(word[i])) {
+                cleanWord[c] = word[i];
+                c++;
+            }
+        }
+        cleanWord[c] = '\0';
+        strcpy(word, cleanWord);
+
         // Convert word to lowercase
         strlwr(word);
-
         // Remove last punctuation character
         len = strlen(word);
-        if (ispunct(word[len - 1]))
-            word[len - 1] = '\0';
+        if (ispunct(word[len - 1])) word[len - 1] = '\0';
 
-
-        // Check if word exits in list of all distinct words
+        // Check if word exists in list of all distinct words
         isUnique = 1;
-        for (i=0; i<index && isUnique; i++)
-        {
+        for (i=0; i<index && isUnique; i++) {
             if (strcmp(words[i], word) == 0)
                 isUnique = 0;
         }
@@ -72,8 +83,7 @@ void findwords(const char *path) {
 
             index++;
         }
-        else
-        {
+        else {
             count[i - 1]++;
         }
     }
@@ -85,9 +95,8 @@ void findwords(const char *path) {
     /*
      * Print occurrences of all words in file. 
      */
-    printf("\nOccurrences of all distinct words in file: \n");
-    for (i=0; i<index; i++)
-    {
+    printf("Occurrences of all distinct words in file %s\n", path);
+    for (i=0; i<index; i++) {
         /*
          * %-15s prints string in 15 character width.
          * - is used to print string left align inside
@@ -95,4 +104,5 @@ void findwords(const char *path) {
          */
         printf("%-15s => %d\n", words[i], count[i]);
     }    
+    free(words);
 }
