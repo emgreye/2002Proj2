@@ -5,3 +5,4 @@
 #include <string.h>
 #include "build.h"
 #include "findfiles.h"
+#include "findwords.h"
