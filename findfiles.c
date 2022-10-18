@@ -1,13 +1,13 @@
 #include "trove.h"
 #include <dirent.h>
 
-void listFiles(const char* dirname) {
+void findfiles(const char* dirname, int minWordLength) {
     DIR* dir = opendir(dirname);
     if (dir == NULL) {
         return;
     }
 
-    printf("Reading files in: %s\n", dirname);
+    printf("\nReading files in: %s\n", dirname);
 
     struct dirent* entity;
     entity = readdir(dir);
@@ -20,18 +20,19 @@ void listFiles(const char* dirname) {
         strcat(path, "/");
         strcat(path, entity->d_name);
 
-        printf("%hhd %s\n", entity->d_type, path); // Prints the type and the path to the entity
+        // printf("%hhd %s\n", entity->d_type, path); // Prints the type and the path to the entity
 
         // RECURSIVELY GOES THROUGH THE SUBDIRECTORIES
         if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
             // UPDATES PATH AND RUNS FUNCTION AGAIN RECURSIVELY
-            listFiles(path);
+            findfiles(path, minWordLength);
         }
 
         else if (entity->d_type == DT_REG) {
             // ACTION TO BE PERFORMED IF THE ENTITY IS A FILE
             // (i.e. going through the words, etc)
-            findwords(path);
+            printf("Reading the words in %s\n", path);
+            findwords(path, minWordLength);
         }
 
         // GOES TO NEXT ENTITY IN FOLDER

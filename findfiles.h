@@ -1,1 +1,1 @@
-extern void     listFiles(const char* dirname);
+extern void     findfiles(const char* dirname, int minWordLength);
