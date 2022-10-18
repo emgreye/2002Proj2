@@ -2,6 +2,17 @@
 
 #define MAX_WORD_SIZE 50
 
+char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
+  unsigned char *p = (unsigned char *)str;
+
+  while (*p) {
+     *p = tolower((unsigned char)*p);
+      p++;
+  }
+
+  return str;
+}
+
 void findwords(const char *path) {
     FILE *fptr;
     fptr = fopen(path, "r");
@@ -36,7 +47,7 @@ void findwords(const char *path) {
     while (fscanf(fptr, "%s", word) != EOF)
     {
         // Convert word to lowercase
-        // strlwr(word);
+        strlwr(word);
 
         // Remove last punctuation character
         len = strlen(word);
@@ -55,8 +66,7 @@ void findwords(const char *path) {
         // If word is unique then add it to distinct words list
         // and increment index. Otherwise increment occurrence 
         // count of current word.
-        if (isUnique) 
-        {
+        if (isUnique) {
             strcpy(words[index], word);
             count[index]++;
 
