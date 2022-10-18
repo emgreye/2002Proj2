@@ -2,12 +2,12 @@
 #include <sys/stat.h>
 
 void buildtrove(char filename[], char contents[]) {
-    FILE *fp;
-    fp = fopen(filename, "w");
-    if (fp == NULL) {
-        printf("Could not build file!");
+    FILE *fptr;
+    fptr = fopen(filename, "w");
+    if (fptr == NULL) {
+        printf("Unable to build trove-file.\n");
         exit(EXIT_FAILURE);
     }
-    fputs(contents, fp);
-    fclose(fp);
+    fputs(contents, fptr);
+    fclose(fptr);
 }
