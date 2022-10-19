@@ -1,6 +1,7 @@
 #include "trove.h"
 
 #define MAX_WORD_SIZE 2000
+#define MAX_LINE_SIZE 4000
 
 char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
   unsigned char *p = (unsigned char *)str;
@@ -13,7 +14,7 @@ char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
   return str;
 }
 
-void parsewords(const char *path, int minLength) {
+void findwords(const char *path, int minLength) {
     FILE *fptr;
     fptr = fopen(path, "r");
 
@@ -30,7 +31,7 @@ void parsewords(const char *path, int minLength) {
 
     printf("File is %d bytes.\n", size);
 
-    int i, len, index, isUnique;
+    int i, index, isUnique;
 
     char **words; // List of all the distinct words in the file
     words = malloc(size * sizeof(char*));
@@ -47,49 +48,43 @@ void parsewords(const char *path, int minLength) {
     for (i=0; i<size; i++) count[i] = 0;
     index = 0;
     
-    while (fscanf(fptr, "%s", word) != EOF) {
-        break;
-        // Skips the iteration if word is too short
-        if (strlen(word) < minLength) continue;
-        if (strlen(word) > MAX_WORD_SIZE) continue;
+	char line[MAX_LINE_SIZE];
+	int lineno = 0;
+	
+    while (fgets(line ,MAX_LINE_SIZE, fptr) != NULL) {
+        int start = 0;
+        int end = 0;
 
-        // Remove special characters
-        char cleanWord[MAX_WORD_SIZE];
-        int i = 0, c = 0;
-        for(; i < strlen(word); i++) {
-            if (isalnum(word[i])) {
-                cleanWord[c] = word[i];
-                c++;
-            } else {
-                
+		const char alphanum[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        while (end<MAX_LINE_SIZE && line[end]!='\n') {
+			//sets the initial character to be the first alphanumeric char
+            start = start + end + strcspn(line+start+end, alphanum);
+			//end is no of letters before you find a non-alphanumeric char
+            end = strspn(line+start, alphanum);
+			// If word is unique then add it to distinct words list
+			// and increment index. Otherwise increment occurrence 
+			// count of current word.
+            // Check if word exists in list of all distinct words
+            isUnique = 1;
+            for (i=0; i<index && isUnique; i++) {
+                if (strcmp(words[i], word) == 0)
+                    isUnique = 0;
             }
-        }
-        cleanWord[c] = '\0';
-        strcpy(word, cleanWord);
 
-        // Remove last punctuation character
-        len = strlen(word);
-        if (ispunct(word[len - 1])) word[len - 1] = '\0';
+			if (isUnique) {
+				//copy chars from start to end into the words array
+				memcpy(&words[lineno][index], &line[start], end);
+				//terminates string with a null byte.
+				words[lineno][end] = '\0';
+				count[index]++;
 
-        // Check if word exists in list of all distinct words
-        isUnique = 1;
-        for (i=0; i<index && isUnique; i++) {
-            if (strcmp(words[i], word) == 0)
-                isUnique = 0;
-        }
-
-        // If word is unique then add it to distinct words list
-        // and increment index. Otherwise increment occurrence 
-        // count of current word.
-        if (isUnique) {
-            strcpy(words[index], word);
-            count[index]++;
-
-            index++;
-        } else {
-            count[i - 1]++;
-        }
-    }
+				index++;
+				} else {
+					count[i - 1]++;
+				}
+			}
+            ++lineno; 			
+	}
 
     // Close file
     fclose(fptr);
@@ -104,7 +99,7 @@ void parsewords(const char *path, int minLength) {
          * - is used to print string left align inside
          * 15 character width space.
          */
-        printf("%-15s => %lu\n", words[i], hashFunction(words[i]));
+        printf("%-15s => %d\n", words[i], count[i]);
     }    
     printf("found %d words.\n", index);
     free(words);
