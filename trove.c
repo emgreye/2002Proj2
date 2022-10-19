@@ -56,6 +56,7 @@ int main(int argc, char *argv[]) {
     argv  += optind;
 
     if (build) {
+        buildtrove(filenm);
         int i = 0;
         while (argv[i] != NULL) {
             findfiles(argv[i], length, filenm);
