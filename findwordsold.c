@@ -1,7 +1,6 @@
 #include "trove.h"
 
 #define MAX_WORD_SIZE 2000
-#define MAX_LINE_SIZE 4000
 
 char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
   unsigned char *p = (unsigned char *)str;
@@ -47,36 +46,56 @@ void findwords(const char *path, int minLength) {
     // Initialize words count to 0
     for (i=0; i<size; i++) count[i] = 0;
     index = 0;
-    
-	char line[MAX_LINE_SIZE];
-	int lineno = 0;
-	
-    while (fgets(line ,MAX_LINE_SIZE, fptr) != NULL) {
-        int start = 0;
-        int end = 0;
-		const char alphanum[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        while (end<MAX_LINE_SIZE && line[end]!='\n') {
-			//sets the initial character to be the first alphanumeric char
-            start = start + end + strcspn(line+start+end, alphanum);
-			//end is no of letters before you find a non-alphanumeric char
-            end = strspn(line+start, alphanum);
-			// If word is unique then add it to distinct words list
-			// and increment index. Otherwise increment occurrence 
-			// count of current word.
-			if (isUnique) {
-				//copy chars from start to end into the words array
-				memcpy(words[lineno][word], &line[start], end);
-				//terminates string with a null byte.
-				words[lineno][word][end] = '\0';
-				count[index]++;
 
-				index++;
-				} else {
-					count[i - 1]++;
-				}
-			}
-            ++lineno; 			
-	}
+    char buffer[100];
+
+    fread(buffer, 100*sizeof(char), 100, fptr);
+
+    printf("%s\n", buffer);
+    
+    while (fscanf(fptr, "%s", word) != EOF) {
+        break;
+        // Skips the iteration if word is too short
+        if (strlen(word) < minLength) continue;
+        if (strlen(word) > MAX_WORD_SIZE) continue;
+
+        // Remove special characters
+        // char cleanWord[MAX_WORD_SIZE];
+        // int i = 0, c = 0;
+        // for(; i < strlen(word); i++) {
+        //     if (isalnum(word[i])) {
+        //         cleanWord[c] = word[i];
+        //         c++;
+        //     } else {
+                
+        //     }
+        // }
+        // cleanWord[c] = '\0';
+        // strcpy(word, cleanWord);
+
+        // Remove last punctuation character
+        len = strlen(word);
+        if (ispunct(word[len - 1])) word[len - 1] = '\0';
+
+        // Check if word exists in list of all distinct words
+        isUnique = 1;
+        for (i=0; i<index && isUnique; i++) {
+            if (strcmp(words[i], word) == 0)
+                isUnique = 0;
+        }
+
+        // If word is unique then add it to distinct words list
+        // and increment index. Otherwise increment occurrence 
+        // count of current word.
+        if (isUnique) {
+            strcpy(words[index], word);
+            count[index]++;
+
+            index++;
+        } else {
+            count[i - 1]++;
+        }
+    }
 
     // Close file
     fclose(fptr);
