@@ -67,18 +67,18 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         // } else {
         //     count[i - 1]++;
         // }
-        if (isalnum(c)) {
+        if (isalnum(c)) { // If character is alnum, keep recording the word
           word[position] = c;
           position++;
-        } else {
+        } else { // If stumbling upon non-alnum char, stop recording and put the word in words[]
           if (position >= minLength) {
             for (i = 0; i < position; i++) {
               words[index][i] = word[i];
-              word[i] = 0;
             }
-            index++;
+            for (i = 0; i < MAX_WORD_SIZE; i++) word[i] = 0; // Clear word[]
+            index++; // Put window on next slot in words[]
           }
-          position = 0;
+          position = 0; // Reset window
         }
     }
 
@@ -98,7 +98,7 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         
         // Hashes the words and puts them in the trove file
         char buffer[16];
-        sprintf(buffer, "%d\n", hashFunction(words[i]));
+        sprintf(buffer, "%s\n", words[i]);
         buildtrove(trovepath, buffer);
         printf("%-15s => %d\n", words[i], hashFunction(words[i]));
     }    
