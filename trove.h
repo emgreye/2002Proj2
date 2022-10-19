@@ -8,3 +8,4 @@
 #include <sys/stat.h>
 #include "words.h"
 #include "trovefile.h"
+#include "findwords.h"

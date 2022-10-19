@@ -15,7 +15,8 @@ int main(int argc, char *argv[]) {
     bool build   = false;
     bool remove = false;
     bool update = false;
-    char *filenm = DEFAULT_FILE;
+    char filenm[1024];
+    strcpy(filenm, DEFAULT_FILE);
     int  length   = DEFAULT_LENGTH;
     char wrongarg;
 
@@ -54,18 +55,24 @@ int main(int argc, char *argv[]) {
     argc  -= optind;
     argv  += optind;
 
-    // HERE FOR TESTING PURPOSES ONLY FOR THE MOMENT
     if (build) {
         int i = 0;
         while (argv[i] != NULL) {
-            // printf("Hash of %s: %lu\n", argv[i], hashFunction(argv[i]));
             findfiles(argv[i], length, filenm);
+            i++;
+        }
+    }
+
+    if (!(build || update || remove)) {
+        int i = 0;
+        while (argv[i] != NULL) {
+            findwords(filenm, argv[i]);
             i++;
         }
     }
     
     //dummy code so that it compiles
-    printf("Length? %i.\nFile name? %s.\nBuild? %i.\nRemove? %i.\nUpdate? %i.\n", length, filenm, build, remove, update);
+    // printf("Length? %i.\nFile name? %s.\nBuild? %i.\nRemove? %i.\nUpdate? %i.\n", length, filenm, build, remove, update);
     
     exit(EXIT_SUCCESS);
 }
