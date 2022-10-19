@@ -78,9 +78,6 @@ void parsewords(const char *path, int minLength, char *trovepath) {
             }
             index++;
           }
-          for (i = 0; i < position-1; i++) {
-            word[i] = 0;
-          }
           position = 0;
         }
     }
