@@ -39,7 +39,6 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         words[i] = malloc((MAX_WORD_SIZE + 1) * sizeof(char));
     }
 
-    // char words[size][MAX_WORD_SIZE]; // List of all the distinct words in the file
     int  count[size]; // List of occurences of each word in the words[] array
     char word[MAX_WORD_SIZE];
     char c;
@@ -50,28 +49,6 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     position = 0;
     
     while (fscanf(fptr, "%c", &c) != EOF) {
-        //  //Skips the iteration if word is too short
-        // if (strlen(word) < minLength) continue;
-        // if (strlen(word) > MAX_WORD_SIZE) continue;
-
-        // // Remove special characters
-        // char cleanWord[MAX_WORD_SIZE];
-        // int i = 0, c = 0;
-        // for(; i < strlen(word); i++) {
-        //     if (isalnum(word[i])) {
-        //         cleanWord[c] = word[i];
-        //         c++;
-        //     } else {
-                
-        //     }
-        // }
-        // cleanWord[c] = '\0';
-        // strcpy(word, cleanWord);
-
-        // // Remove last punctuation character
-        // len = strlen(word);
-        // if (ispunct(word[len - 1])) word[len - 1] = '\0';
-
         // // Check if word exists in list of all distinct words
         // isUnique = 1;
         // for (i=0; i<index && isUnique; i++) {
