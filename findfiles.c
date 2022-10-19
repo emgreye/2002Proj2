@@ -7,7 +7,7 @@ void findfiles(const char* dirname, int minWordLength) {
     // If dirname is just a file
     if (fopen(dirname, "r") != NULL && dir == NULL) { 
         printf("finding words in %s.\n", dirname);
-        findwords(dirname, minWordLength);
+        parsewords(dirname, minWordLength);
     }
 
     // If directory does not exist
@@ -41,7 +41,7 @@ void findfiles(const char* dirname, int minWordLength) {
             // ACTION TO BE PERFORMED IF THE ENTITY IS A FILE
             // (i.e. going through the words, etc)
             printf("finding words in %s.\n", path);
-            findwords(path, minWordLength);
+            parsewords(path, minWordLength);
         }
 
         // GOES TO NEXT ENTITY IN FOLDER

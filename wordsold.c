@@ -13,7 +13,7 @@ char *strlwr(char *str) { // Custom strlwr() method to ensure compatibility
   return str;
 }
 
-void findwords(const char *path, int minLength) {
+void parsewords(const char *path, int minLength) {
     FILE *fptr;
     fptr = fopen(path, "r");
 

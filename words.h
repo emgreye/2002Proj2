@@ -1,2 +1,2 @@
 char *strlwr(char *str);
-extern void     findwords(const char *path, int minLength);
+extern void     parsewords(const char *path, int minLength);
