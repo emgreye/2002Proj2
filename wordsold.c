@@ -46,12 +46,6 @@ void findwords(const char *path, int minLength) {
     // Initialize words count to 0
     for (i=0; i<size; i++) count[i] = 0;
     index = 0;
-
-    char buffer[100];
-
-    fread(buffer, 100*sizeof(char), 100, fptr);
-
-    printf("%s\n", buffer);
     
     while (fscanf(fptr, "%s", word) != EOF) {
         break;
@@ -60,18 +54,18 @@ void findwords(const char *path, int minLength) {
         if (strlen(word) > MAX_WORD_SIZE) continue;
 
         // Remove special characters
-        // char cleanWord[MAX_WORD_SIZE];
-        // int i = 0, c = 0;
-        // for(; i < strlen(word); i++) {
-        //     if (isalnum(word[i])) {
-        //         cleanWord[c] = word[i];
-        //         c++;
-        //     } else {
+        char cleanWord[MAX_WORD_SIZE];
+        int i = 0, c = 0;
+        for(; i < strlen(word); i++) {
+            if (isalnum(word[i])) {
+                cleanWord[c] = word[i];
+                c++;
+            } else {
                 
-        //     }
-        // }
-        // cleanWord[c] = '\0';
-        // strcpy(word, cleanWord);
+            }
+        }
+        cleanWord[c] = '\0';
+        strcpy(word, cleanWord);
 
         // Remove last punctuation character
         len = strlen(word);
@@ -110,7 +104,7 @@ void findwords(const char *path, int minLength) {
          * - is used to print string left align inside
          * 15 character width space.
          */
-        printf("%-15s => %d\n", words[i], count[i]);
+        printf("%-15s => %lu\n", words[i], hashFunction(words[i]));
     }    
     printf("found %d words.\n", index);
     free(words);

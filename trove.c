@@ -58,7 +58,8 @@ int main(int argc, char *argv[]) {
     if (build) {
         int i = 0;
         while (argv[i] != NULL) {
-            findfiles(argv[i], length);
+            printf("Hash of %s: %lu\n", argv[i], hashFunction(argv[i]));
+            // findfiles(argv[i], length);
             i++;
         }
     }

@@ -5,5 +5,5 @@
 #include <string.h>
 #include "build.h"
 #include "findfiles.h"
-#include "findwords.h"
 #include <sys/stat.h>
+#include "words.h"
