@@ -3,7 +3,7 @@
 
 void buildtrove(char filename[], char contents[]) {
     FILE *fptr;
-    fptr = fopen(filename, "w");
+    fptr = fopen(filename, "a");
     if (fptr == NULL) {
         printf("Unable to build trove-file.\n");
         exit(EXIT_FAILURE);
