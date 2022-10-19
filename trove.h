@@ -7,3 +7,4 @@
 #include "findfiles.h"
 #include <sys/stat.h>
 #include "words.h"
+#include "trovefile.h"

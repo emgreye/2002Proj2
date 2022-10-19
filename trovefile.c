@@ -1,21 +1,35 @@
 #include "trove.h"
 
-struct set {
-  int key;
-  int data;
-};
+#define MULTIPLIER (31)
 
-struct set *array;
-int capacity = 1000;
-int size = 0;
+// struct set {
+//   int key;
+//   int data;
+// };
 
-// Hash a string into an int
-unsigned long hashFunction(char* str) {
-    unsigned long i = 0;
-    for (int j=0; str[j]; j++)
-        i += str[j];
-    return i % capacity;
+// struct set *array;
+// int capacity = 10000;
+// int size = 0;
+
+// Multiplication method hash from https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)HashTables.html?highlight=%28CategoryAlgorithmNotes%29
+int hashFunction(char *str)
+{
+    int h;
+    unsigned const char *us;
+
+    /* cast s to unsigned const char * */
+    /* this ensures that elements of s will be treated as having values >= 0 */
+    us = (unsigned const char *) str;
+
+    h = 0;
+    while(*us != '\0') {
+        h = h * MULTIPLIER + *us;
+        us++;
+    } 
+
+    return h;
 }
+
 
 // int checkPrime(int n) {
 //   int i;
