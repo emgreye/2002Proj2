@@ -27,7 +27,7 @@ int hashFunction(char *str)
         us++;
     } 
 
-    return h;
+    return abs(h);
 }
 
 
