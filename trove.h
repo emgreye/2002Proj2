@@ -9,3 +9,4 @@
 #include "words.h"
 #include "trovefile.h"
 #include "findwords.h"
+#include "remove.h"

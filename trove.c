@@ -64,6 +64,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    if (remove) {
+        int i = 0;
+        while (argv[i] != NULL) {
+            removetrove(filenm, argv[i]);
+            i++;
+        }
+    }
+
     if (!(build || update || remove)) {
         int i = 0;
         while (argv[i] != NULL) {
