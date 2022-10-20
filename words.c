@@ -86,7 +86,7 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     fclose(fptr);
     char completepath[MAX_WORD_SIZE];
     realpath(path, completepath);
-    appendtrove(trovepath, "#");
+    appendtrove(trovepath, "\n#");
     appendtrove(trovepath, completepath);
 
     /*
