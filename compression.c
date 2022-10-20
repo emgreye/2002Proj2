@@ -12,8 +12,8 @@ void compresstrove(const char *path) {
 }
 
 void readcompressed(const char *path){
-  char command[6 + strlen(path)];
-  strcpy(command, "zcat ");
+  char command[9 + strlen(path)];
+  strcpy(command, "zcat -f ");
   strcat(command, path);
   system(command);
 }
