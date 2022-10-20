@@ -6,7 +6,7 @@ void compresstrove(const char *path) {
   // sprintf(command, "gzip -9c %s > %s", path, path);
   // execl("/bin/sh", "/bin/sh", "-c", command, NULL);
   char command[6 + strlen(path)];
-  strcpy(command, "gzip ");
+  strcpy(command, "gzip -f ");
   strcat(command, path);
   system(command);
 }
