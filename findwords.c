@@ -18,10 +18,9 @@ void findwords(char *trovefile, char *word) {
         if (line[0] == '#') {
             memmove(line, line+1, strlen(line));
             strcpy(currentPath, line);
-            // printf("%s", currentPath);
         }
         if (hashFunction(word) == atoi(line)) {
-            printf("%s", currentPath);
+            printf("%s\n", currentPath);
         }
     }
   

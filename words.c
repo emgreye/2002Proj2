@@ -96,7 +96,6 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     for (i = 0; i < maxSize; i++) {
       int isUnique = 1;
       for (int j = 0; j < maxSize; j++) {
-        printf("Word %s is being compared with uniqueWord %s\n", words[i], uniqueWords[j]);
         if (strcmp(words[i], uniqueWords[j]) == 0) isUnique = 0;
       }
       if (isUnique) {
