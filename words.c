@@ -111,4 +111,5 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     printf("found %d unique words.\n", index);
     free(words);
     free(uniqueWords);
+    // compresstrove(trovepath);
 }
