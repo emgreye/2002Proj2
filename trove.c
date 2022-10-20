@@ -68,10 +68,9 @@ int main(int argc, char *argv[]) {
         }
     }
 	else if (remove) {
-        removetrove(filenm);
         int i = 0;
         while (argv[i] != NULL) {
-            findfiles(argv[i], length, filenm);
+            removetrove(filenm, argv[i]);
             i++;
         }
     }
@@ -84,18 +83,10 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (remove) {
-        int i = 0;
-        while (argv[i] != NULL) {
-            removetrove(filenm, argv[i]);
-            i++;
-        }
-    }
-
     if (!(build || update || remove)) {
         int i = 0;
         while (argv[i] != NULL) {
-            findwords(filenm, argv[i]);
+            updatetrove(filenm, argv[i]);
             i++;
         }
     }
