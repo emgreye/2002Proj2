@@ -28,7 +28,7 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     int size = ftell(fptr);
     rewind(fptr);
 
-    printf("File is %d bytes.\n", size);
+    // printf("File is %d bytes.\n", size);
 
     int i, index, position/*, isUnique*/;
 
@@ -49,24 +49,6 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     position = 0;
     
     while (fscanf(fptr, "%c", &c) != EOF) {
-        // // Check if word exists in list of all distinct words
-        // isUnique = 1;
-        // for (i=0; i<index && isUnique; i++) {
-        //     if (strcmp(words[i], word) == 0)
-        //         isUnique = 0;
-        // }
-
-        // // If word is unique then add it to distinct words list
-        // // and increment index. Otherwise increment occurrence 
-        // // count of current word.
-        // if (isUnique) {
-        //     strcpy(words[index], word);
-        //     count[index]++;
-
-        //     index++;
-        // } else {
-        //     count[i - 1]++;
-        // }
         if (isalnum(c)) { // If character is alnum, keep recording the word
           word[position] = c;
           position++;
@@ -123,7 +105,7 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         char buffer[16];
         sprintf(buffer, "\n%d", hashFunction(uniqueWords[i]));
         appendtrove(trovepath, buffer);
-        printf("%-15s => %d\n", uniqueWords[i], hashFunction(uniqueWords[i]));
+        // printf("%-15s => %d\n", uniqueWords[i], hashFunction(uniqueWords[i]));
     }    
     printf("found %d unique words.\n", index);
     free(words);

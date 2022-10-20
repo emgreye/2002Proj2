@@ -9,6 +9,7 @@ void buildtrove(char filename[]) {
         exit(EXIT_FAILURE);
     }
     fclose(fptr);
+    printf("building trove-file\n");
 }
 
 void appendtrove(char filename[], char contents[]) {

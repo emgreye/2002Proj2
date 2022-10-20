@@ -6,7 +6,7 @@ void findfiles(const char* dirname, int minWordLength, char *trovepath) {
 
     // If dirname is just a file
     if (fopen(dirname, "r") != NULL && dir == NULL) { 
-        printf("finding words in %s.\n", dirname);
+        printf("finding words in \"%s\"\n", dirname);
         parsewords(dirname, minWordLength, trovepath);
     }
 
@@ -36,7 +36,7 @@ void findfiles(const char* dirname, int minWordLength, char *trovepath) {
         else if (entity->d_type == DT_REG) {
             // ACTION TO BE PERFORMED IF THE ENTITY IS A FILE
             // (i.e. going through the words, etc)
-            printf("finding words in %s.\n", path);
+            printf("finding words in \"%s\"\n", path);
             parsewords(path, minWordLength, trovepath);
         }
 
