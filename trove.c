@@ -23,40 +23,60 @@ int main(int argc, char *argv[]) {
     opterr	= 0;
     while((opt = getopt(argc, argv, OPTLIST)) != -1)   {  
 //  IF b IS SPECIFIED, PROGRAM SHOULD BUILD NEW FILE
-	if(opt == 'b') {
-            build  =  true;
-        }
+		if(opt == 'b') {
+        	build = true;
+    	}
 //  IF r IS SPECIFIED, PROGRAM SHOULD REMOVE CONTENTS OF FILE
-    else if(opt == 'r') {
+    	else if(opt == 'r') {
             remove  =  true;
         }
 //  IF u IS SPECIFIED, PROGRAM SHOULD UPDATE FILE
-    else if(opt == 'u') {
+    	else if(opt == 'u') {
             update  =  true;
         }
 //  TAKES THE NAME OF THE FILE
-	else if(opt == 'f') {
+		else if(opt == 'f') {
             strcpy(filenm, optarg);
         }
-//  TAKES LENGTH OF 
-	else if(opt == 'l') {
+//  TAKES MINIMUM LENGTH OF WORD
+		else if(opt == 'l') {
             length  =  atoi(optarg);
-        }
+    }
 //  AN UNKNOWN ARGUMENT
         else {
             argc = -1;
             wrongarg = opt;
         }
     }
+	
+	if (build+remove+update > 1){
+		fprintf(stderr, "Only one action can be performed to trovefile\n");
+	}
 
     if(argc <= 0) {    //  error if unknown argument 
-         fprintf(stderr, "%c: Invalid argument\n", wrongarg);
+    	fprintf(stderr, "%c: Invalid argument\n", wrongarg);
     }
     argc  -= optind;
     argv  += optind;
 
     if (build) {
         buildtrove(filenm);
+        int i = 0;
+        while (argv[i] != NULL) {
+            findfiles(argv[i], length, filenm);
+            i++;
+        }
+    }
+	else if (remove) {
+        removetrove(filenm);
+        int i = 0;
+        while (argv[i] != NULL) {
+            findfiles(argv[i], length, filenm);
+            i++;
+        }
+    }
+	else if (update) {
+        updatetrove(filenm);
         int i = 0;
         while (argv[i] != NULL) {
             findfiles(argv[i], length, filenm);
