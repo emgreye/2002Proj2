@@ -16,7 +16,7 @@ void removetrove(char *trovepath, char *filepath) {
     char path[1024];
     realpath(filepath, path);
     
-    printf("deleting data of \"%s\"\n", filepath);
+    printf("removing potentially already existing data of \"%s\" in trove-file\n", filepath);
 
     int isToDelete = 0;
     char reformattedLine[1024];
@@ -32,7 +32,6 @@ void removetrove(char *trovepath, char *filepath) {
             memmove(line, line+1, strlen(line));
             // Ensures data is deleted regardless of folder or file specification
             if (strncmp(line, path, strlen(path)) == 0) {
-                printf("STRING BEGINS THE SAME");
                 isToDelete = 1;
             }
             sprintf(reformattedLine, "#%s\n", line);
@@ -42,7 +41,6 @@ void removetrove(char *trovepath, char *filepath) {
         if (!isToDelete) {
             // ACTIONS FOR COPYING THE LINE
             fputs(reformattedLine, fptrReplica);
-            printf("%s", line);
         }
     }
 

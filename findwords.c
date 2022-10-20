@@ -6,12 +6,13 @@ void findwords(char *trovefile, char *word) {
         printf("Unable to build trove-file.\n");
         exit(EXIT_FAILURE);
     }
+    printf("reading trove-file\n");
  
     char *line = NULL;
     size_t len = 0;
     char currentPath[1024];
  
-    printf("looking for word \"%s\"\n", word);
+    printf("searching for \"%s\"\n", word);
 
     // TODO: Handle duplicates (when a word is found multiple times in a file)
     while(getline(&line, &len, fptr) != -1) {
@@ -20,7 +21,7 @@ void findwords(char *trovefile, char *word) {
             strcpy(currentPath, line);
         }
         if (hashFunction(word) == atoi(line)) {
-            printf("%s\n", currentPath);
+            printf("%s", currentPath);
         }
     }
   
