@@ -85,11 +85,12 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         index++;
       }
     }
-
-    char completepath[MAX_WORD_SIZE];
-    realpath(path, completepath);
-    appendtrove(trovepath, "\n#");
-    appendtrove(trovepath, completepath);
+    if (index > 0) {
+      char completepath[MAX_WORD_SIZE];
+      realpath(path, completepath);
+      appendtrove(trovepath, "\n#");
+      appendtrove(trovepath, completepath);
+    }
 
     /*
      * Print occurrences of all words in file. 
