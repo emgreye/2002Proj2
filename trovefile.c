@@ -2,9 +2,9 @@
 
 #define MULTIPLIER (31)
 
-// Multiplication method hash from https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)HashTables.html?highlight=%28CategoryAlgorithmNotes%29
-int hashFunction(char *str)
-{
+// Multiplication method hash function from https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)HashTables.html?highlight=%28CategoryAlgorithmNotes%29
+// In this application, ensures virtually null chances of collisions.
+int hashFunction(char *str) {
     int h;
     unsigned const char *us;
 

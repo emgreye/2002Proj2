@@ -14,10 +14,14 @@ void findwords(char *trovefile, char *word) {
  
     printf("searching for \"%s\"\n", word);
 
-    // TODO: Handle duplicates (when a word is found multiple times in a file)
+    // Checks every line.
+    // For each one of them, check if it is a word hash or a path.
+    // If it is a path, tell the program every next hash belongs to this path's file.
+    // If it is a hash, check if it is the one we are looking for.
+    //      If yes, printf() the path it is in.
     while(getline(&line, &len, fptr) != -1) {
         if (line[0] == '#') {
-            memmove(line, line+1, strlen(line));
+            memmove(line, line+1, strlen(line)); // Gets rid of the # identifier
             strcpy(currentPath, line);
         }
         if (hashFunction(word) == atoi(line)) {

@@ -28,26 +28,20 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     int size = ftell(fptr);
     rewind(fptr);
 
-    // printf("File is %d bytes.\n", size);
 
-    int i, index, position/*, isUnique*/;
+    int i = 0, index = 0, position = 0;
 
     char **words; // List of all the words in the file
     words = malloc(size * sizeof(char*));
-
     for(i = 0; i < size; i++) {
         words[i] = malloc((MAX_WORD_SIZE + 1) * sizeof(char));
     }
 
-    int  count[size]; // List of occurences of each word in the words[] array
+    // Parse file char by char.
+    // Stop every time a non-alnum char is encountered.
+    //    Record all the previous chars as a word and store it.
     char word[MAX_WORD_SIZE];
     char c;
-
-    // Initialize words count to 0
-    for (i=0; i<size; i++) count[i] = 0;
-    index = 0;
-    position = 0;
-    
     while (fscanf(fptr, "%c", &c) != EOF) {
         if (isalnum(c)) { // If character is alnum, keep recording the word
           word[position] = c;
@@ -67,7 +61,7 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     // Close file
     fclose(fptr);
 
-    // Looks for duplicates
+    // Look for duplicates.
     int maxSize = index;
     index = 0;
     char **uniqueWords; // List of all the distinct words in the file
@@ -91,22 +85,12 @@ void parsewords(const char *path, int minLength, char *trovepath) {
       appendtrove(trovepath, "\n#");
       appendtrove(trovepath, completepath);
     }
-
-    /*
-     * Print occurrences of all words in file. 
-     */
+    
+    // Hashes the words and puts them in the trove file
     for (i=0; i<index; i++) {
-        /*
-         * %-15s prints string in 15 character width.
-         * - is used to print string left align inside
-         * 15 character width space.
-         */
-        
-        // Hashes the words and puts them in the trove file
         char buffer[16];
         sprintf(buffer, "\n%d", hashFunction(uniqueWords[i]));
         appendtrove(trovepath, buffer);
-        // printf("%-15s => %d\n", uniqueWords[i], hashFunction(uniqueWords[i]));
     }    
     printf("found %d unique words.\n", index);
     free(words);

@@ -28,27 +28,27 @@ int main(int argc, char *argv[]) {
 
     opterr	= 0;
     while((opt = getopt(argc, argv, OPTLIST)) != -1)   {  
-//  IF b IS SPECIFIED, PROGRAM SHOULD BUILD NEW FILE
+        //  IF b IS SPECIFIED, PROGRAM SHOULD BUILD NEW FILE
 		if(opt == 'b') {
         	build = true;
     	}
-//  IF r IS SPECIFIED, PROGRAM SHOULD REMOVE CONTENTS OF FILE
+        //  IF r IS SPECIFIED, PROGRAM SHOULD REMOVE CONTENTS OF FILE
     	else if(opt == 'r') {
             remove  =  true;
         }
-//  IF u IS SPECIFIED, PROGRAM SHOULD UPDATE FILE
+        //  IF u IS SPECIFIED, PROGRAM SHOULD UPDATE FILE
     	else if(opt == 'u') {
             update  =  true;
         }
-//  TAKES THE NAME OF THE FILE
+        //  TAKES THE NAME OF THE FILE
 		else if(opt == 'f') {
             strcpy(filenm, optarg);
         }
-//  TAKES MINIMUM LENGTH OF WORD
+        //  TAKES MINIMUM LENGTH OF WORD
 		else if(opt == 'l') {
             length  =  atoi(optarg);
     }
-//  AN UNKNOWN ARGUMENT
+        //  AN UNKNOWN ARGUMENT
         else {
             argc = -1;
             wrongarg = opt;
@@ -95,9 +95,6 @@ int main(int argc, char *argv[]) {
             i++;
         }
     }
-    
-    //dummy code so that it compiles
-    // printf("Length? %i.\nFile name? %s.\nBuild? %i.\nRemove? %i.\nUpdate? %i.\n", length, filenm, build, remove, update);
     
     exit(EXIT_SUCCESS);
 }

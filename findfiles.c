@@ -20,8 +20,7 @@ void findfiles(const char* dirname, int minWordLength, char *trovepath) {
 
     // GOES THROUGH EVERY ENTITY IN THE DIRECTORY
     while (entity != NULL) {
-        // ACTION TO BE PERFORMED REGARDLESS OF THE ENTITY
-
+        // ACTIONS TO BE PERFORMED REGARDLESS OF THE ENTITY
         char path[100] = { 0 };
         strcat(path, dirname);
         strcat(path, "/");
@@ -34,7 +33,7 @@ void findfiles(const char* dirname, int minWordLength, char *trovepath) {
         }
 
         else if (entity->d_type == DT_REG) {
-            // ACTION TO BE PERFORMED IF THE ENTITY IS A FILE
+            // IF THE ENTITY IS A FILE, PARSE WORDS
             // (i.e. going through the words, etc)
             printf("finding words in \"%s\"\n", path);
             parsewords(path, minWordLength, trovepath);

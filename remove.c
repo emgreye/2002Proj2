@@ -20,26 +20,32 @@ void removetrove(char *trovepath, char *filepath) {
 
     int isToDelete = 0;
     char reformattedLine[1024];
+
+    // Checks every line.
+    // For each one of them, check if it is a word hash or a path.
+    // If it is a path, check if it is the one we want to delete.
+    // If it is a hash, check if it belongs to the path we want to delete.
+    //      If yes, set isToDelete to true.
+    // Check if isToDelete is true, and if not, put the line in the new updated file.
     while(getline(&line, &len, fptr) != -1) {
         // IF LINE SPECIFIES THE START OF A PATH
         if (line[0] == '#') {
             // IF WE WERE DELETING A PATH BEFORE, RESET
             if (isToDelete == 1) isToDelete = 0;
             // CHECK IF THIS PATH IS TO DELETE
-            // Ensures proper comparison without # or \n
+            // Ensure proper comparison without # or \n
             size_t length = strlen(line);
             if (line[length-1] == '\n') line[length-1] = '\0';
             memmove(line, line+1, strlen(line));
-            // Ensures data is deleted regardless of folder or file specification
+            // Use of strncmp so that user can choose to delete a file or directly a whole folder
             if (strncmp(line, path, strlen(path)) == 0) {
                 isToDelete = 1;
             }
-            sprintf(reformattedLine, "#%s\n", line);
+            sprintf(reformattedLine, "#%s\n", line); // Recreates the path as it was found
         } else {
             strcpy(reformattedLine, line);
         }
         if (!isToDelete) {
-            // ACTIONS FOR COPYING THE LINE
             fputs(reformattedLine, fptrReplica);
         }
     }
