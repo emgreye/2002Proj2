@@ -1,6 +1,6 @@
 #include "trove.h"
 
-char* findwords(char *trovefile, char *word) {
+void findwords(char *trovefile, char *word) {
     FILE *fptr = fopen(trovefile, "r");
     if(fptr == NULL) {
         printf("Unable to build trove-file.\n");
@@ -27,5 +27,4 @@ char* findwords(char *trovefile, char *word) {
   
     fclose(fptr);
     free(line);  
-    return "caca";
 }

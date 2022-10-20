@@ -1,1 +1,1 @@
-char* findwords(char *trovefile, char *word);
+void findwords(char *trovefile, char *word);
