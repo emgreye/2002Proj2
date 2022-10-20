@@ -11,3 +11,4 @@
 #include "findwords.h"
 #include "remove.h"
 #include "update.h"
+#include "compression.h"

@@ -3,9 +3,9 @@
 
 PROJECT =  trove
 HEADERS =  $(PROJECT).h
-OBJ     =  trove.o build.o findfiles.o words.o trovefile.o findwords.o remove.o update.o
+OBJ     =  trove.o build.o findfiles.o words.o trovefile.o findwords.o remove.o update.o compression.o
 # To add later to OBJ
-# file1.o compression.o filenames.o globals.o
+# file1.o filenames.o globals.o
 
 C11     =  cc -std=c11
 CFLAGS  =  -Wall -Werror -pedantic
