@@ -15,11 +15,11 @@ void removetrove(char *trovepath, char *filepath) {
     size_t len = 0;
     char path[1024];
     realpath(filepath, path);
-    // char currentPath[1024];
     
     printf("deleting data of \"%s\"\n", filepath);
 
     int isToDelete = 0;
+    char reformattedLine[1024];
     while(getline(&line, &len, fptr) != -1) {
         // IF LINE SPECIFIES THE START OF A PATH
         if (line[0] == '#') {
@@ -32,12 +32,16 @@ void removetrove(char *trovepath, char *filepath) {
             memmove(line, line+1, strlen(line));
             // Ensures data is deleted regardless of folder or file specification
             if (strncmp(line, path, strlen(path)) == 0) {
+                printf("STRING BEGINS THE SAME");
                 isToDelete = 1;
             }
+            sprintf(reformattedLine, "#%s\n", line);
+        } else {
+            strcpy(reformattedLine, line);
         }
         if (!isToDelete) {
             // ACTIONS FOR COPYING THE LINE
-            fputs(line, fptrReplica);
+            fputs(reformattedLine, fptrReplica);
             printf("%s", line);
         }
     }

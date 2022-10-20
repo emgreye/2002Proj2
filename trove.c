@@ -75,10 +75,9 @@ int main(int argc, char *argv[]) {
         }
     }
 	else if (update) {
-        updatetrove(filenm);
         int i = 0;
         while (argv[i] != NULL) {
-            findfiles(argv[i], length, filenm);
+            updatetrove(filenm, argv[i], length);
             i++;
         }
     }
@@ -86,7 +85,7 @@ int main(int argc, char *argv[]) {
     if (!(build || update || remove)) {
         int i = 0;
         while (argv[i] != NULL) {
-            updatetrove(filenm, argv[i]);
+            findwords(filenm, argv[i]);
             i++;
         }
     }

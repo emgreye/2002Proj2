@@ -1,1 +1,1 @@
-extern void updatetrove(char filelist[]);
+void updatetrove(char *trovepath, char *filepath, int minWordLength);

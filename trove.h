@@ -10,3 +10,4 @@
 #include "trovefile.h"
 #include "findwords.h"
 #include "remove.h"
+#include "update.h"
