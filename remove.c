@@ -45,6 +45,6 @@ void removetrove(char *trovepath, char *filepath) {
     fclose(fptr);
     fclose(fptrReplica);
     remove(trovepath);
-    rename(replicapath ,trovepath);
+    rename(replicapath, trovepath);
     free(line);
 }
