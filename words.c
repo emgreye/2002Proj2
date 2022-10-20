@@ -32,10 +32,10 @@ void parsewords(const char *path, int minLength, char *trovepath) {
 
     int i, index, position/*, isUnique*/;
 
-    char **words; // List of all the distinct words in the file
+    char **words; // List of all the words in the file
     words = malloc(size * sizeof(char*));
 
-    for(int i = 0; i < size; i++) {
+    for(i = 0; i < size; i++) {
         words[i] = malloc((MAX_WORD_SIZE + 1) * sizeof(char));
     }
 
@@ -84,6 +84,27 @@ void parsewords(const char *path, int minLength, char *trovepath) {
 
     // Close file
     fclose(fptr);
+
+    // Looks for duplicates
+    int maxSize = index;
+    index = 0;
+    char **uniqueWords; // List of all the distinct words in the file
+    uniqueWords = malloc(maxSize * sizeof(char*));
+    for(i = 0; i < maxSize; i++) {
+        uniqueWords[i] = malloc((MAX_WORD_SIZE + 1) * sizeof(char));
+    }
+    for (i = 0; i < maxSize; i++) {
+      int isUnique = 1;
+      for (int j = 0; j < maxSize; j++) {
+        printf("Word %s is being compared with uniqueWord %s\n", words[i], uniqueWords[j]);
+        if (strcmp(words[i], uniqueWords[j]) == 0) isUnique = 0;
+      }
+      if (isUnique) {
+        strcpy(uniqueWords[index], words[i]);
+        index++;
+      }
+    }
+
     char completepath[MAX_WORD_SIZE];
     realpath(path, completepath);
     appendtrove(trovepath, "\n#");
@@ -101,10 +122,11 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         
         // Hashes the words and puts them in the trove file
         char buffer[16];
-        sprintf(buffer, "\n%d", hashFunction(words[i]));
+        sprintf(buffer, "\n%d", hashFunction(uniqueWords[i]));
         appendtrove(trovepath, buffer);
-        printf("%-15s => %d\n", words[i], hashFunction(words[i]));
+        printf("%-15s => %d\n", uniqueWords[i], hashFunction(uniqueWords[i]));
     }    
-    printf("found %d words.\n", index);
+    printf("found %d unique words.\n", index);
     free(words);
+    free(uniqueWords);
 }
