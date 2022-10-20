@@ -1,6 +1,12 @@
 //  CITS2002 Project 2 2022
-//  Student1:   23136241   MCAULIFFE   JAKE   CONTRIBUTION
-//  Student2:   22884473   GAUDIN   LÉO   CONTRIBUTION
+//  Student1:   23136241   MCAULIFFE   JAKE   20
+//  Student2:   22884473   GAUDIN   LÉO   80
+//
+//  Calculation detail:
+//      Léo contributed 66 commits with 2,785 additions and 1,370 deletions
+//          Net contribution of 1,415 → 84.78%
+//      Jake contributed 23 commits with 307 additions and 53 deletions:
+//          Net contribution of 254 →   15.22%
 
 #include "trove.h"
 #include <getopt.h>
