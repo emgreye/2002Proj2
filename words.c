@@ -88,7 +88,6 @@ void parsewords(const char *path, int minLength, char *trovepath) {
     realpath(path, completepath);
     appendtrove(trovepath, "#");
     appendtrove(trovepath, completepath);
-    appendtrove(trovepath, "\n");
 
     /*
      * Print occurrences of all words in file. 
@@ -102,7 +101,7 @@ void parsewords(const char *path, int minLength, char *trovepath) {
         
         // Hashes the words and puts them in the trove file
         char buffer[16];
-        sprintf(buffer, "%d\n", hashFunction(words[i]));
+        sprintf(buffer, "\n%d", hashFunction(words[i]));
         appendtrove(trovepath, buffer);
         printf("%-15s => %d\n", words[i], hashFunction(words[i]));
     }    
