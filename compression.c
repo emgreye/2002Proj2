@@ -21,7 +21,7 @@ void readcompressed(const char *path){
   }
   // parent loads then reads pipe
   if (pid != 0){
-    int comp    = open("path", O_RDONLY);
+    int comp    = open(path, O_RDONLY);
     dup2(comp, STDOUT_FILENO);
     close(filed[1]);
     char buf[BUFSIZ];
@@ -33,7 +33,7 @@ void readcompressed(const char *path){
   else if (pid == 0){
     dup2(filed[0], STDIN_FILENO);
     close(filed[0]);
-    int filed1    = open("path", O_RDONLY);
+    int filed1    = open(path, O_RDONLY);
     dup2(filed1, STDOUT_FILENO);
     close(filed1);
 
