@@ -39,7 +39,7 @@ void readcompressed(const char *path){
     dup2(filed1, STDOUT_FILENO);
     close(filed1);
 
-    int i = execl("/usr/bin/zcat","/usr/bin/zcat", (char*)NULL);
+    execl("/usr/bin/zcat","/usr/bin/zcat", (char*)NULL);
     dup2(filed[1], STDOUT_FILENO);
   }
 }
