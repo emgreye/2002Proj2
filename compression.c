@@ -12,8 +12,30 @@ void compresstrove(const char *path) {
 }
 
 void readcompressed(const char *path){
-  char command[9 + strlen(path)];
-  strcpy(command, "zcat -f ");
-  strcat(command, path);
-  system(command);
+  pid_t pid;
+  pipe(int filed[2]);
+
+  if ((pid = fork()) == -1){
+    perror("fork");
+    exit(1);
+  }
+    // parent load file, reads from pipe
+  if (pid != 0){
+    int comp    = open("hello.gz", O_RDONLY);
+    dup2(comp, STDOUT_FILENO);
+    close(filed[1]);
+    char buf[BUFSIZ];
+    read(filed[0], buf, strlen(buf)+1);
+    close(filed[0]);    
+    }
+  
+  // child process reads then writes to pipe
+  else if (pid == 0){
+    dup2(filed[0], STDIN_FILENO);
+    close(filed[0]);
+    int filed1    = open("hello.gz", O_RDONLY);
+    dup2(filed1, STDOUT_FILENO);
+    close(filed1);
+
+    int i = execl("/usr/bin/zcat","/usr/bin/zcat", (char*)NULL);
 }
