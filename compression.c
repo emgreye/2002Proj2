@@ -19,7 +19,7 @@ void readcompressed(const char *path){
     perror("fork");
     exit(1);
   }
-    // parent load file, reads from pipe
+  // parent loads then reads pipe
   if (pid != 0){
     int comp    = open("hello.gz", O_RDONLY);
     dup2(comp, STDOUT_FILENO);
@@ -29,7 +29,7 @@ void readcompressed(const char *path){
     close(filed[0]);    
     }
   
-  // child process reads then writes to pipe
+  // child reads then writes to pipe
   else if (pid == 0){
     dup2(filed[0], STDIN_FILENO);
     close(filed[0]);
